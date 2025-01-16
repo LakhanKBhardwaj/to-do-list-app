@@ -1,0 +1,126 @@
+body {
+    font-family: "Sofia", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(130deg, rgba(2, 0, 36, 1) 0%, rgb(21, 21, 63) 35%);
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 500px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.todo-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.form {
+    display: flex;
+    gap: 10px;
+    border: 1px solid #bbbbbb;
+    border-radius: 50px;
+    width: 400px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    font-family: "Sofia", sans-serif;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    font-family: "Sofia", sans-serif;
+}
+
+.add-button {
+    padding: 10px 20px;
+    background-color: #fa8e01;
+    color: white;
+    border: none;
+    font-size: 16px;
+
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.add-button:hover {
+    background-color: #ffa600;
+}
+
+.todo-list {
+    margin-top: 20px;
+    border: 1px solid #bbbbbb;
+    border-radius: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0 10px;
+
+}
+
+.todo-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+ul .todo-list-item:not(:last-child) {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dedede;
+}
+
+.todo-list-item-name {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.edit-button, .remove-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-button {
+    background-color: #00aeff;
+    color: white;
+}
+
+.edit-button:hover {
+    background-color: #18a9fd;
+}
+
+.remove-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
+}

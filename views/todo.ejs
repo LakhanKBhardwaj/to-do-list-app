@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+
+  <title>Todo List App</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <div class="todos">
+      <div class="todo-form">
+        <form action="/" method="POST" class="form">
+          <input type="text" placeholder="Add a new task...." name="task" required>
+          <button type="submit" class="add-button">
+            <i class="fas fa-plus"></i>
+            <span>Add</span>
+          </button>
+        </form>
+      </div>
+      <div class="todo-list">
+        <ul>
+          <% if (todoTasks && todoTasks.length > 0) { %>
+          <% todoTasks.forEach(data => { %>
+          <li class="todo-list-item">
+            <span class="todo-list-item-name"><%= data.task %></span>
+            <button type="button" onclick="" class="edit-button">
+              <i class="fas fa-edit"></i>
+              <span>Edit</span>
+            </button>
+            <button type="button" onclick="" class="remove-button">
+              <i class="fas fa-times"></i>
+              <span>Remove</span>
+            </button>
+          </li>
+          <% }) %>
+          <% } else { %>
+            <li class="no-data">Data is not available</li>
+          <% } %>
+        </ul>
+    </div>
+  </div>
+</body>
+</html>
