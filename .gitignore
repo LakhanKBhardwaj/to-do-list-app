@@ -1,3 +1,5 @@
-todo-list/node_modules
-todo-list/package-lock.json
-todo-list/config.env
+todo-project-root/node_modules
+todo-project-root/package-lock.json
+todo-project-root/config.env
+
+
