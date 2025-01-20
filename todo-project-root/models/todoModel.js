@@ -2,10 +2,19 @@ const mongoose = require("mongoose");
 
 // Define the Todo schema
 const todoSchema = new mongoose.Schema({
-    task: {
+    taskId: {
+        type: Number,
+        required: true,
+        unique: true
+    },
+    taskName: {
         type: String,
         required: true
     },
+    date: {
+        type: Date,
+        required: true
+    }
 });
 
 // Create the model for the Todo collection

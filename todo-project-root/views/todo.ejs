@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/static/css/style.css" type="text/css">
+  
 
   <title>Todo List App</title>
 </head>
@@ -17,7 +18,7 @@
     <div class="todos">
       <div class="todo-form">
         <form action="/" method="POST" class="form">
-          <input type="text" placeholder="Add a new task...." name="task" required>
+          <input type="text" placeholder="Add a new task...." class="task-add-input" name="task" required>
           <button type="submit" class="add-button">
             <i class="fas fa-plus"></i>
             <span>Add</span>
@@ -25,27 +26,47 @@
         </form>
       </div>
       <div class="todo-list">
-        <ul>
+        <ul class="a">
           <% if (todoTasks && todoTasks.length > 0) { %>
-          <% todoTasks.forEach(data => { %>
-          <li class="todo-list-item">
-            <span class="todo-list-item-name"><%= data.task %></span>
-            <button type="button" onclick="" class="edit-button">
-              <i class="fas fa-edit"></i>
-              <span>Edit</span>
-            </button>
-            <button type="button" onclick="" class="remove-button">
-              <i class="fas fa-times"></i>
-              <span>Remove</span>
-            </button>
-          </li>
-          <% }) %>
+            <% todoTasks.forEach(task => { %>
+              <li class="todo-list-item" id="task-item-<%= task.taskId %>">
+                <!-- Display taskId (with unique ID) -->
+                <!-- <span class="todo-list-item-id" id="task-id-<%= task.taskId %>"><%= task.taskId %>.</span> -->
+                
+                <!-- Display task name (with unique ID) -->
+                <span class="todo-list-item-name" id="task-name-<%= task.taskId %>"><%= task.taskName %></span>
+                
+                <!-- Input for editing the task name (pre-populated with taskName) -->
+                <input type="text" id="task-input-<%= task.taskId %>" value="<%= task.taskName %>" class="task-list-input" name="task" required style="display:none">
+                
+                <!-- Edit Button -->
+                <button type="button" id="edit-task-<%= task.taskId %>" onclick="handleEdit('<%= task.taskId %>')" class="edit-button">
+                  <i class="fas fa-edit"></i>
+                  <span>Edit</span>
+                </button>
+                
+                <!-- Save Button -->
+                <button type="button" id="save-task-<%= task.taskId %>" onclick="handleSave('<%= task.taskId %>')" class="save-button" style="display:none">
+                  <i class="fas fa-save"></i>
+                  <span>Save</span>
+                </button>
+                
+                <!-- Remove Button -->
+                <button type="button" id="delete-task-<%= task.taskId %>" onclick="handelDelete('<%= task.taskId %>')" class="remove-button">
+                  <i class="fas fa-times"></i>
+                  <span>Remove</span>
+                </button>
+              </li>
+            <% }) %>
           <% } else { %>
-          <li class="no-data">Data is not available</li>
+            <li class="no-data">Data is not available</li>
           <% } %>
         </ul>
+        
       </div>
     </div>
-</body>
 
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script  src="static/js/script.js"></script>
 </html>

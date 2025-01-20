@@ -1,5 +1,4 @@
 body {
-    font-family: "Sofia", sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -18,6 +17,8 @@ body {
 }
 
 h1 {
+
+    font-family: "Sofia", sans-serif;
     text-align: center;
     color: #333;
 }
@@ -37,7 +38,7 @@ h1 {
     width: 400px;
 }
 
-input {
+.task-add-input{
     flex: 1;
     padding: 10px;
     font-size: 16px;
@@ -46,7 +47,7 @@ input {
     font-family: "Sofia", sans-serif;
 }
 
-input:focus {
+.task-add-input:focus {
     outline: none;
 }
 
@@ -60,7 +61,6 @@ button {
     color: white;
     border: none;
     font-size: 16px;
-
     border-radius: 50px;
     cursor: pointer;
 }
@@ -75,10 +75,20 @@ button {
     border-radius: 10px;
 }
 
-ul {
-    list-style: none;
-    padding: 0 10px;
 
+ul {
+    list-style-type: none;
+    padding: 0 10px;
+    counter-reset: list-counter;
+}
+
+ul .todo-list-item {
+    counter-increment: list-counter;
+}
+
+ul .todo-list-item::before {
+    content: counter(list-counter) ". ";
+    font-weight: bold;
 }
 
 .todo-list-item {
@@ -86,6 +96,7 @@ ul {
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    gap: 10px;
 }
 
 ul .todo-list-item:not(:last-child) {
@@ -93,10 +104,24 @@ ul .todo-list-item:not(:last-child) {
     border-bottom: 1px solid #dedede;
 }
 
+
 .todo-list-item-name {
     flex: 1;
     font-size: 16px;
     font-weight: 600;
+}
+
+.task-list-input{
+    display: none;
+    flex: 1;
+    padding: 10px;
+    font-size: 14 px;
+    border: 1px solid #dedede;
+    border-radius: 5px;
+}
+.task-list-input:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .edit-button, .remove-button {
@@ -114,6 +139,10 @@ ul .todo-list-item:not(:last-child) {
 
 .edit-button:hover {
     background-color: #18a9fd;
+}
+
+.save-button{
+    display: none;
 }
 
 .remove-button {
