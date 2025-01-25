@@ -1,20 +1,17 @@
 const express = require("express");
 const Todo = require("./models/todoModel");
 const { getNextSequence } = require("./models/counterModel"); // Import the counter model
+const cors = require('cors');
 
 const app = express();
-
-app.use("/static", express.static("public"));
-
 app.set("view engine", "ejs");
 
+app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());  // This allows you to access req.body as an object // Middleware to parse JSON bodies
+app.use(cors()); // Allow cross-origin requests 
 
-// Middleware to parse JSON bodies
-app.use(express.json());  // This allows you to access req.body as an object
 
-const cors = require('cors');
-app.use(cors());  // Allow cross-origin requests
 
 // Get todo list
 app.get("/", async (req, res) => {
@@ -28,72 +25,37 @@ app.get("/", async (req, res) => {
     }
 });
 
-// Create new todo task
-app.post("/", async (req, res, next) => {
-    try {
-        // Get the next taskId from the counter collection
-        const taskId = await getNextSequence("taskId");
+// POST route to add a new task to the database
+app.post("/api/create-task", async (req, res) => {
+    console.log("Received data:", req.body); // Log the incoming request body
+    const { taskName, date } = req.body;
 
-        // Create a new Todo
-        const newTodo = new Todo({
-            taskId: taskId,  // Set the taskId to the next value
-            taskName: req.body.task, // Use req.body.task to get the task name
-            date: new Date() // Use the current date for the task date
+    if (!taskName || !date) {
+        return res.status(400).json({ message: "Task name is required" })
+    }
+
+    try {
+        // Get the next taskId from the counter model (if needed)
+        const nextTaskId = await getNextSequence("taskId");
+
+        const newTask = new Todo({
+            taskId: nextTaskId,
+            taskName,
+            date: new Date(date)
         });
 
-        await newTodo.save(); // Save the new todo to MongoDB
-        res.redirect("/");
-    } catch (error) {
-        console.log(error.name, error.message)
-        res.redirect("/")
+        await newTask.save();
+        res.status(201).json(newTask);
+    }
+    catch (error) {
+        console.error("Error in POST /api/create-task:", error);
+        console.error("Error adding task:", error);
+        res.status(500).json({ message: "There was an error creating the task" });
     }
 });
 
-// Edit todo task 
-app.post("/editTask/:taskId", async (req, res) => {
-    const taskId = req.params.taskId; // Use the taskId from the URL
-    const { text } = req.body;        // Get the updated task name from the request body
-    console.log("Request Body:", req.body);
-    console.log(`taskId: ${taskId}, text: ${text}`);
-    try {
-        // Find the task using taskId and update the taskName field
-        const updatedTask = await Todo.findOneAndUpdate(
-            { taskId: taskId },    // Match the task by taskId (not _id)
-            { taskName: text },     // Update the taskName field with the new value
-            { new: true }           // Return the updated document
-        );
-        console.log('updated data', updatedTask)
-        if (!updatedTask) {
-            return res.status(404).json({ success: false, message: "Task not found" });
-        }
 
-        // Respond with the updated task
-        res.json({ success: true, task: updatedTask });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
-});
 
-// Remove the task
-app.delete("/deleteTask/:taskId", async (req, res) => {
-    const taskId = req.params.taskId; // Use the taskId from the URL
 
-    try {
-        // Find the task by taskId and delete it
-        const deletedTask = await Todo.findOneAndDelete({ taskId: taskId });
-
-        if (!deletedTask) {
-            return res.status(404).json({ success: false, message: "Task not found" });
-        }
-
-        // Send success response
-        res.json({ success: true, message: "Task deleted successfully" });
-    } catch (error) {
-        console.error("Error deleting task:", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
-    }
-
-})
 
 module.exports = app;
