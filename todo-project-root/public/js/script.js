@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
                 try {
-                    const response = await fetch("http://localhost:8000/api/update-task", {
+                    const response = await fetch(`http://localhost:8000/api/update-task`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json"

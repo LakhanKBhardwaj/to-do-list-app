@@ -17,7 +17,6 @@ app.use(cors()); // Allow cross-origin requests
 app.get("/", async (req, res) => {
     try {
         const tasks = await Todo.find();
-        console.log("Fetched tasks:", tasks); // Logs the tasks to the terminals
         res.render("todo.ejs", { todoTasks: tasks }); // Renders the view
     } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -27,7 +26,6 @@ app.get("/", async (req, res) => {
 
 // POST route to add a new task to the database
 app.post("/api/create-task", async (req, res) => {
-    console.log("Received data:", req.body); // Log the incoming request body
     const { taskName, date } = req.body;
 
     if (!taskName || !date) {
@@ -55,7 +53,11 @@ app.post("/api/create-task", async (req, res) => {
 });
 
 
-
+// Update the task name by the task id 
+app.put('/api/update-task', async (req, res) => {
+    const { taskId } = req.params; // Get taskId from URL
+    console.log("Received data:", req.body)
+})
 
 
 module.exports = app;
