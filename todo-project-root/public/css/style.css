@@ -163,7 +163,7 @@ ul .todo-list-item:not(:last-child) {
     box-shadow: none;
 }
 
-.edit-button, .remove-button {
+.edit-button, .remove-button, .save-button {
     margin-left: 10px;
     padding: 5px 10px;
     border: none;
@@ -182,6 +182,8 @@ ul .todo-list-item:not(:last-child) {
 
 .save-button{
     display: none;
+    color: white;
+    background-color: #228539;
 }
 
 .remove-button {

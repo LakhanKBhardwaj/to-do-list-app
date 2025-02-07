@@ -19,17 +19,18 @@ export function createTaskList(newTask) {
              <i class="fas fa-edit"></i>
              <span>Edit</span>
          </button>
-         <form action="/" method="POST" class="form" style="display: inline;">
-             <input type="text" id="task-input-${newTask.taskId}" value="${newTask.taskName}" class="task-list-input" name="task" required style="display:none">
-             <button type="button" id="save-task-${newTask.taskId}" onclick="handleSave('${newTask.taskId}')" class="save-button" style="display:none">
-                 <i class="fas fa-save"></i>
-                 <span>Save</span>
-             </button>
-         </form>
-         <button type="button" id="delete-task-${newTask.taskId}" onclick="handleDelete('${newTask.taskId}')" class="remove-button">
-             <i class="fas fa-times"></i>
-             <span>Remove lakhan</span>
-         </button>
+         <!-- Input for editing the task name (pre-populated with taskName) -->
+        <input type="text" id="task-input-${newTask.taskId}" value="${newTask.taskName}" class="task-list-input" name="task" required style="display:none">
+        <button type="button" id="save-task-${newTask.taskId}" onclick="handleSave('${newTask.taskId}')" class="save-button" style="display:none">
+            <i class="fas fa-save"></i>
+            <span>Save</span>
+        </button>
+        
+        <button type="button" id="delete-task-${newTask.taskId}" onclick="handleDelete('${newTask.taskId}')" class="remove-button">
+            <i class="fas fa-times"></i>
+            <span>Remove</span>
+        </button>
+       
      `;
 
     return listItem; // Return the created <li> element
